@@ -7,7 +7,11 @@ $(function () {
     const addDOM = (event) => {
         event.preventDefault()
 
-        const divChild = document.createElement('div')
+        const addTask = $("#task").val();
+        const prioritySelect = $("#inputGroupSelect01").val();
+        const datePicker = $("#datepicker").val();
+        console.log(addTask, prioritySelect, datePicker)
+
         $('#result-field').append(`<div class="input-group mb-3" id="task-result">
         <div class="input-group-prepend">
             <div class="input-group-text">
@@ -15,8 +19,17 @@ $(function () {
             </div>
         </div>
         <output id="task-output" type="text" class="form-control" aria-label="Task output with checkbox">
+        <div>
+        <h3>${addTask}</h3>
+        </div>
+        <div>
+        <h3>${datePicker}</h3>
+        </div>
+        </output>
     </div>
         `)
+
+        
     }
 
 
