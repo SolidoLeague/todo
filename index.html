@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
 
@@ -25,7 +26,7 @@
             </div>
         </div>
 
-        <form action="">
+        <form id="task-form">
             <div class="row justify-content-center">
                 <div class="col">
 
@@ -49,7 +50,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <input id="datepicker"/>
+                    <input id="datepicker" />
                     <script>
                         $('#datepicker').datepicker({
                             uiLibrary: 'bootstrap4'
@@ -59,6 +60,23 @@
 
                 <div class="add">
                     <button type="submit" class="btn btn-primary">+</button>
+                </div>
+            </div>
+        </form>
+
+        <form class="result-form" id="result-form-1">
+
+            <div class="row justify-content-center">
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                        <output type="text" class="form-control" aria-label="Text input with checkbox">
+                    </div>
                 </div>
             </div>
         </form>
