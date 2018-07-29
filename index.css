@@ -1,7 +1,6 @@
-p {
+.title {
     font-size: 80px;
-    font-family: Sacramento;
-    
+    font-family: 'Sacramento', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #task-output {
@@ -12,3 +11,6 @@ p {
     margin-top: 10px;
 }
 
+#task {
+    max-width: 10px;
+}
