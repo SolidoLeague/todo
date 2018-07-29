@@ -29,7 +29,6 @@ $(function () {
 
         $('#result-field').append(`<div class="input-group mb-3" id="task-result">
 
-        resultField.append(`< div class= "input-group mb-3" id = "task-result" >
 
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -51,7 +50,6 @@ $(function () {
             </div>
         
         `)
-<<<<<<< HEAD
 
 
         $("#task").val(null)
@@ -64,8 +62,6 @@ $(function () {
     const deleteDOM = ()=>{
         event.preventDefault()
         resultField.empty()
-=======
->>>>>>> upstream/master
     }
 
 
