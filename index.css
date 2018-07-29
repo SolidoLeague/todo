@@ -6,9 +6,16 @@ p {
 
 #task-output {
     margin-right: -15px;
+    padding-bottom: 22px;
+}
+
+#result-field {
+    margin-right: -15px;
 }
 
 #task-result {
     margin-top: 10px;
 }
+
+
 
