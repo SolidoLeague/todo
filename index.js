@@ -20,27 +20,38 @@ $(function () {
 
 
 
-        resultField.append(`<div class="input-group mb-3" id="task-result">
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <input type="checkbox" aria-label="Checkbox for following text input">
+        if (prioritySelect == "high")
+            $('#task-output').css('background-color', 'red');
+        else if (prioritySelect == "med")
+            $('#task-output').css('background-color', 'yellow');
+        else if (prioritySelect == "low")
+            $('#task-output').css('background-color', 'green');
+
+        $('#result-field').append(`<div class="input-group mb-3" id="task-result">
+
+        resultField.append(`< div class= "input-group mb-3" id = "task-result" >
+
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
             </div>
-        </div>
-        
-        <div class="col">
-        <output id="task-output" type="text" class="form-control" aria-label="Task output with checkbox">
-        <div>
-        <h3>${addTask}</h3>
-        </div>
-        <div>
-        <h3>${datePicker}</h3>
-        </div>
-        </output>
-        </div>
-        <button id="delete-button"type="click" class="btn btn-secondary">x</button>
-        </div>
+                </div>
+
+                <div class="col">
+                    <output id="task-output" type="text" class="form-control" aria-label="Task output with checkbox">
+                        <div>
+                            <h3>${addTask}</h3>
+                        </div>
+                        <div>
+                            <h3>${datePicker}</h3>
+                        </div>
+                    </output>
+                </div>
+                <button id="delete-button" type="click" class="btn btn-secondary">x</button>
+            </div>
         
         `)
+<<<<<<< HEAD
 
 
         $("#task").val(null)
@@ -53,8 +64,9 @@ $(function () {
     const deleteDOM = ()=>{
         event.preventDefault()
         resultField.empty()
+=======
+>>>>>>> upstream/master
     }
-
 
 
 
@@ -70,4 +82,3 @@ $(function () {
 
 
 })
-
