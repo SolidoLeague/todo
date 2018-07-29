@@ -7,75 +7,59 @@
     <title>Solido To Do </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
-
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col text-center">
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container title">
+            <h1 class="display-4 ">Solido To Do</h1>
+            <p class="lead">Simple TODO List Application for Everyone.</p>
+        </div>
+    </div>
 
-                <p class="header">Solido Todo</p>
-
+    <!-- Input Form -->
+    <form id="task-form">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-2">
+                <div class="form-group">
+                    <input type="text" class="form-control task-input" id="task" placeholder="Type your task here">
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose your priority</option>
+                        <option value="high">High</option>
+                        <option value="med">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col-lg-2">
+                <div class="form-group">
+                    <input type="date" class="form-control task-input" id="datepicker">
+                </div>
+            </div>
+            <div class="add">
+                <button type="submit" id="add" class="btn btn-primary">+</button>
             </div>
         </div>
+    </form>
 
-        <form id="task-form">
-            <div class="row justify-content-center">
-                <div class="col">
-
-                    <div>
-                        <input id="task" type="text" class="form-control" placeholder="Type your task here" aria-label="type" aria-describedby="basic-addon1">
-                    </div>
-
-                </div>
-
-                <div class="col-xs-4">
-
-                    <div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Choose your priority</option>
-                            <option value="high">High</option>
-                            <option value="med">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-                    <input id="datepicker" />
-                    <script>
-                        $('#datepicker').datepicker({
-                            uiLibrary: 'bootstrap4'
-                        });
-                    </script>
-                </div>
-
-                <div class="add">
-                    <button type="submit" class="btn btn-primary">+</button>
-                </div>
-            </div>
-        </form>
-
-        <form class="result-form" id="result-form-1">
-
-            <div id="result-field">
-
-
-            </div>
-            
-
-        </form>
+    <!-- Output -->
+    <form class="result-form" id="result-form-1">
+        <div id="result-field"></div>
+    </form>
     </div>
-    <script src="index.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>
