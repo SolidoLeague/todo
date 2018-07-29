@@ -12,7 +12,13 @@ $(function () {
         const datePicker = $("#datepicker").val();
         console.log(addTask, prioritySelect, datePicker)
 
-        
+        if (prioritySelect == "high") 
+            $('#task-output').css('background-color', 'red');
+        else if (prioritySelect == "med")
+            $('#task-output').css('background-color', 'yellow');
+        else if (prioritySelect == "low")
+            $('#task-output').css('background-color', 'green');
+
         $('#result-field').append(`<div class="input-group mb-3" id="task-result">
         <div class="input-group-prepend">
             <div class="input-group-text">
@@ -29,12 +35,6 @@ $(function () {
         </output>
     </div>
         `)
-        if (prioritySelect == "high") 
-            $('#task-output').css('background-color', 'red');
-        else if (prioritySelect == "med")
-            $('#task-output').css('background-color', 'yellow');
-        else if (prioritySelect == "low")
-            $('#task-output').css('background-color', 'green');
     }
 
 
