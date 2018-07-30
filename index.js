@@ -14,9 +14,10 @@ $(function () {
                             <input type="checkbox" aria-label="Checkbox for following text input">
                         </div>
                     </div>
-                    <output id="task-output${id}" type="text" class="form-control" aria-label="Task output with checkbox">
-                        <div>
-                            <h3>${task}</h3>
+                    <output id="task-output${id}" type="text" class="form-control todo-content" aria-label="Task output with checkbox">
+                        <div class="d-flex flex-row ">
+                            <h4 class="mr-auto">${task}</h4>
+                            <h5>${date}</h5>
                         </div>
                     </output>
                 </div>
@@ -28,11 +29,11 @@ $(function () {
         `)
 
         if (priority === "high") {
-            $('#task-output' + id).css('background-color', 'red');
+            $('#task-output' + id).css({"background-color":"tomato", "color":"white"});
         } else if (priority === "med") {
-            $('#task-output' + id).css('background-color', 'yellow');
+            $('#task-output' + id).css({"background-color":"yellow","color":"purple"});
         } else if (priority === "low") {
-            $('#task-output' + id).css('background-color', 'green');
+            $('#task-output' + id).css({"background-color":"green","color":"white"});
         }
     }
 
