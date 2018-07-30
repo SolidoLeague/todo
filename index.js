@@ -1,9 +1,8 @@
 $(function () {
     const taskForm = $("#task-form");
-    const resultField = $("#result-field");
+    let id = 0;
 
-    let id = localStorage.length;
-
+    // Add data to DOM
     const addToDOM = (id, task, priority, date) => {
         $('#result-field').append(`
         <div class="row justify-content-md-center" id="task-result${id}">
@@ -29,14 +28,24 @@ $(function () {
         `)
 
         if (priority === "high") {
-            $('#task-output' + id).css({ "background-color": "tomato", "color": "white" });
+            $('#task-output' + id).css({
+                "background-color": "tomato",
+                "color": "white"
+            });
         } else if (priority === "med") {
-            $('#task-output' + id).css({ "background-color": "yellow", "color": "purple" });
+            $('#task-output' + id).css({
+                "background-color": "yellow",
+                "color": "purple"
+            });
         } else if (priority === "low") {
-            $('#task-output' + id).css({ "background-color": "green", "color": "white" });
+            $('#task-output' + id).css({
+                "background-color": "green",
+                "color": "white"
+            });
         }
     }
 
+    // Add data to local storage
     const setItem = (event) => {
         event.preventDefault();
 
@@ -53,31 +62,33 @@ $(function () {
 
     }
 
+    // Get data from local storage
     const getItem = () => {
-        for (let i = 0; i < localStorage.length; i++) {
+        let length = localStorage.length;
+        for (let i = 0; i < length; i++) {
             const taskItem = JSON.parse(localStorage.getItem('taskItem' + i));
-            addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+            if (taskItem != null) {
+                addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+            } else {
+                length++;
+            }
         }
     }
 
+    // Remove data in local storage
     const removeItem = (id) => {
         localStorage.removeItem('taskItem' + id);
         $('#task-result' + id).remove();
     }
 
-    if (id > 0) getItem();
+    getItem();
 
     // Event Listener
     taskForm.on("submit", setItem);
 
     for (let j = 0; j < localStorage.length; j++) {
         $(`#delete${j}`).on('click', function () {
-            $(`#task-result${j}`).remove();
-            $(this).remove();
-            localStorage.removeItem(`taskItem${j}`);
-
+            removeItem(j);
         })
     }
-
-
 });
