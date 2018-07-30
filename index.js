@@ -1,6 +1,5 @@
 $(function () {
     const taskForm = $("#task-form");
-    let val = 0;
     let id = localStorage.length;
 
     // Add Data to DOM
@@ -80,17 +79,5 @@ $(function () {
 
     // Event Listener
     taskForm.on("submit", setItem);
-
-    $("#result-field").on("click", function () {
-        for (let i = 0; i < length; i++) {
-            const taskItem = JSON.parse(localStorage.getItem('taskItem' + i));
-            if (taskItem != null) {
-                removeItem(i);
-                console.log("test");
-            } else {
-                length++;
-            }
-        }
-    });
 
 });
