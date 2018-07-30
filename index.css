@@ -1,4 +1,18 @@
 .input-group {
     padding-bottom: 10px;
+}
 
+.high {
+    background-color: tomato;
+    color: white;
+}
+
+.medium {
+    background-color: yellow;
+    color: purple;
+}
+
+.low {
+    background-color: green;
+    color: white
 }
