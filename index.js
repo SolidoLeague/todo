@@ -1,7 +1,7 @@
 $(function () {
     const taskForm = $("#task-form");
     const resultField = $("#result-field");
-    
+
     let id = localStorage.length;
 
     const addToDOM = (id, task, priority, date) => {
@@ -29,11 +29,11 @@ $(function () {
         `)
 
         if (priority === "high") {
-            $('#task-output' + id).css({"background-color":"tomato", "color":"white"});
+            $('#task-output' + id).css({ "background-color": "tomato", "color": "white" });
         } else if (priority === "med") {
-            $('#task-output' + id).css({"background-color":"yellow","color":"purple"});
+            $('#task-output' + id).css({ "background-color": "yellow", "color": "purple" });
         } else if (priority === "low") {
-            $('#task-output' + id).css({"background-color":"green","color":"white"});
+            $('#task-output' + id).css({ "background-color": "green", "color": "white" });
         }
     }
 
@@ -66,18 +66,18 @@ $(function () {
     }
 
     if (id > 0) getItem();
-  
+
     // Event Listener
     taskForm.on("submit", setItem);
 
     for (let j = 0; j < localStorage.length; j++) {
-        $(`#delete${j}`).on('click', function() {
+        $(`#delete${j}`).on('click', function () {
             $(`#task-result${j}`).remove();
             $(this).remove();
             localStorage.removeItem(`taskItem${j}`);
-            
+
         })
     }
 
-    
+
 });
