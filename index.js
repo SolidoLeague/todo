@@ -89,6 +89,6 @@ $(function () {
     for (let j = 0; j < localStorage.length; j++) {
         $(`#delete${j}`).on('click', function () {
             removeItem(j);
-        })
-    }
+        });
+    };
 });
