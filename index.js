@@ -23,7 +23,7 @@ $(function () {
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="delete" class="btn btn-danger" value=${id}>x</button>
+                <button type="button" id="delete${id}" class="btn btn-danger" value=${id}>x</button>
             </div>
         </div>
         `)
@@ -70,5 +70,14 @@ $(function () {
     // Event Listener
     taskForm.on("submit", setItem);
 
+    for (let j = 0; j < localStorage.length; j++) {
+        $(`#delete${j}`).on('click', function() {
+            $(`#task-result${j}`).remove();
+            $(this).remove();
+            localStorage.removeItem(`taskItem${j}`);
+            
+        })
+    }
 
+    
 });
