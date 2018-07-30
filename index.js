@@ -1,8 +1,12 @@
 $(function () {
     const taskForm = $("#task-form");
+    let val = 0;
     let id = localStorage.length;
 
+    // Add Data to DOM
     const addToDOM = (id, task, priority, date) => {
+        console.log(`${id}`);
+
         $('#result-field').append(`
         <div class="row justify-content-md-center" id="task-result${id}">
             <div class="col col-lg-5">
@@ -20,10 +24,13 @@ $(function () {
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="delete" class="btn btn-danger" value=${id}>x</button>
+                <button type="button" id="delete${id}" class="btn btn-danger" value=${id}>x</button>
             </div>
         </div>
         `)
+
+        $('#delete' + id).val(id);
+        console.log("addToDOM: ", $('#delete').val());
 
         if (priority === "high") {
             $('#task-output' + id).css('background-color', 'red');
@@ -34,6 +41,7 @@ $(function () {
         }
     }
 
+    // Add Data to Local Storage
     const setItem = (event) => {
         event.preventDefault();
 
@@ -44,22 +52,28 @@ $(function () {
             'datePicker': $("#datepicker").val()
         }
         localStorage.setItem('taskItem' + taskItem.id, JSON.stringify(taskItem));
-        addToDOM(id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
-        console.log(id);
+        addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
         id++;
-
     }
 
+    // Get Data from Local Storage
     const getItem = () => {
-        for (let i = 0; i < localStorage.length; i++) {
+        let length = localStorage.length;
+        for (let i = 0; i < length; i++) {
             const taskItem = JSON.parse(localStorage.getItem('taskItem' + i));
-            addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+            if (taskItem != null) {
+                addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+            } else {
+                length++;
+            }
         }
     }
 
+    // Remove Data from Local Storage
     const removeItem = (id) => {
         localStorage.removeItem('taskItem' + id);
         $('#task-result' + id).remove();
+        console.log('taskItem' + id)
     }
 
     if (id > 0) getItem();
@@ -67,5 +81,16 @@ $(function () {
     // Event Listener
     taskForm.on("submit", setItem);
 
+    $("#result-field").on("click", function () {
+        for (let i = 0; i < length; i++) {
+            const taskItem = JSON.parse(localStorage.getItem('taskItem' + i));
+            if (taskItem != null) {
+                removeItem(i);
+                console.log("test");
+            } else {
+                length++;
+            }
+        }
+    });
 
 });
