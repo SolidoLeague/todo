@@ -1,5 +1,7 @@
 $(function () {
     const taskForm = $("#task-form");
+    const resultField = $("#result-field");
+    
     let id = localStorage.length;
 
     const addToDOM = (id, task, priority, date) => {
@@ -63,7 +65,7 @@ $(function () {
     }
 
     if (id > 0) getItem();
-
+  
     // Event Listener
     taskForm.on("submit", setItem);
 
