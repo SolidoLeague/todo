@@ -1,49 +1,71 @@
 $(function () {
     const taskForm = $("#task-form");
-    const resultField = $("#result-field");
-    let i = 1;
+    let id = localStorage.length;
 
-    const addToDOM = (event) => {
-        event.preventDefault();
-
-        const addTask = $("#task").val();
-        const prioritySelect = $("#inputGroupSelect01").val();
-        const datePicker = $("#datepicker").val();
-        console.log(addTask, prioritySelect, datePicker)
-
-        if (prioritySelect == "high")
-            $('#task-output' + i).css('background-color', 'red');
-        else if (prioritySelect == "med")
-            $('#task-output' + i).css('background-color', 'yellow');
-        else if (prioritySelect == "low")
-            $('#task-output' + i).css('background-color', 'green');
-
+    const addToDOM = (id, task, priority, date) => {
         $('#result-field').append(`
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center" id="task-result${id}">
             <div class="col col-lg-5">
-                <div class="input-group mb-3" id="task-result">
+                <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <input type="checkbox" aria-label="Checkbox for following text input">
                         </div>
                     </div>
-                    <output id="task-output${i}" type="text" class="form-control" aria-label="Task output with checkbox">
+                    <output id="task-output${id}" type="text" class="form-control" aria-label="Task output with checkbox">
                         <div>
-                            <h3>${addTask}</h3>
-                        </div>
-                        <div>
-                            <h3>${datePicker}</h3>
+                            <h3>${task}</h3>
                         </div>
                     </output>
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="delete" class="btn btn-danger">x</button>
+                <button type="button" id="delete" class="btn btn-danger" value=${id}>x</button>
             </div>
         </div>
         `)
+
+        if (priority === "high") {
+            $('#task-output' + id).css('background-color', 'red');
+        } else if (priority === "med") {
+            $('#task-output' + id).css('background-color', 'yellow');
+        } else if (priority === "low") {
+            $('#task-output' + id).css('background-color', 'green');
+        }
     }
 
+    const setItem = (event) => {
+        event.preventDefault();
+
+        const taskItem = {
+            'id': id,
+            'addTask': $("#task").val(),
+            'prioritySelect': $("#inputGroupSelect01").val(),
+            'datePicker': $("#datepicker").val()
+        }
+        localStorage.setItem('taskItem' + taskItem.id, JSON.stringify(taskItem));
+        addToDOM(id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+        console.log(id);
+        id++;
+
+    }
+
+    const getItem = () => {
+        for (let i = 0; i < localStorage.length; i++) {
+            const taskItem = JSON.parse(localStorage.getItem('taskItem' + i));
+            addToDOM(taskItem.id, taskItem.addTask, taskItem.prioritySelect, taskItem.datePicker);
+        }
+    }
+
+    const removeItem = (id) => {
+        localStorage.removeItem('taskItem' + id);
+        $('#task-result' + id).remove();
+    }
+
+    if (id > 0) getItem();
+
     // Event Listener
-    taskForm.on("submit", addToDOM);
+    taskForm.on("submit", setItem);
+
+
 });
