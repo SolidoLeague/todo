@@ -2,6 +2,17 @@
     padding-bottom: 10px;
 }
 
+.jumbotron {
+    background-image: url("./image/header.jpg");
+    background-size: cover;
+    margin-bottom: 60px;
+    height: 170px;
+}
+
+.text-center {
+    color: cornsilk;
+}
+
 .high {
     background-color: tomato;
     color: white;
