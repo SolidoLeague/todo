@@ -49,6 +49,12 @@ $(function () {
         localStorage.setItem("todolist", JSON.stringify(todos));
     };
 
+    const search = () => {
+        $('#task').keyup(function () {
+
+        });
+    }
+
     const createTemplate = ({
         id,
         task,
