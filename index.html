@@ -17,45 +17,54 @@
 <body>
     <!-- Jumbotron -->
     <div class="jumbotron jumbotron-fluid">
-        <div class="container title">
-            <h1 class="display-4 ">Solido Todo List</h1>
-            <p class="lead">Simple Todo List Application for Everyone.</p>
+        <div class="container">
+            <h1 class="display-5 text-center">Solido TODO</h1>
+            <p class="text-center">Simple Todo List Application for Everyone.</p>
         </div>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand" id="current-date"></a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
     </div>
 
     <!-- Input Form -->
-    <form id="task-form">
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-2">
-                <div class="form-group">
-                    <input type="text" class="form-control task-input" id="task" placeholder="Type your task here">
+    <div class="container">
+        <form id="task-form">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-7">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="task" placeholder="Type your task here">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div>
+                        <select class="custom-select" id="priority">
+                            <option selected>Priority</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <input class="form-control" id="datepicker" placeholder="Due date">
+                    </div>
+                </div>
+                <div class="add">
+                    <button type="submit" id="add" class="btn btn-primary">+</button>
                 </div>
             </div>
-            <div class="col-md-auto">
-                <div>
-                    <select class="custom-select" id="priority-select">
-                        <option selected>Choose your priority</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col col-lg-2">
-                <div class="form-group">
-                    <input type="date" class="form-control task-input" id="datepicker">
-                </div>
-            </div>
-            <div class="add">
-                <button type="submit" id="add" class="btn btn-primary">+</button>
-            </div>
-        </div>
-    </form>
+        </form>
 
-    <!-- Output -->
-    <form class="result-form" id="result-form-1">
-        <div id="result-field"></div>
-    </form>
+        <!-- Output -->
+        <form class="result-form" id="result-form-1">
+            <div id="result-field"></div>
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
