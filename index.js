@@ -1,7 +1,7 @@
 $(function () {
     const getDatePicker = () => {
         $('#datepicker').datepicker({
-            format: 'mm/dd/yyyy',
+            format: 'dd/mm/yyyy',
             uiLibrary: 'bootstrap4'
         });
     }
@@ -9,7 +9,7 @@ $(function () {
     const getCurrentDate = () => {
         let today = new Date();
         let date = today.getDate();
-        let month = today.getMonth();
+        let month = today.getMonth() + 1;
         const year = today.getFullYear();
 
         if (date < 10) date = '0' + date;
@@ -23,7 +23,7 @@ $(function () {
     const checkInput = () => {
         $('#add').prop('disabled', true);
         $('#task').keyup(function () {
-            if ($(this).val() != '') $('#add').prop('disabled', false);
+            if ($(this).val() !== "") $('#add').prop('disabled', false);
             else $('#add').prop('disabled', true);
         });
     }
@@ -50,8 +50,14 @@ $(function () {
     };
 
     const search = () => {
-        $('#task').keyup(function () {
-
+        const data = getStorage();
+        $('#search').keyup(function () {
+            const result = [];
+            data.forEach((todo, index) => {
+                const search = todo.task.toLowerCase().includes($('#search').val());
+                if (search) result.push(data[index]);
+            });
+            displayToDOM(result);
         });
     }
 
@@ -66,20 +72,20 @@ $(function () {
             <div class="col col-lg-11">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
+                        <div class="input-group-text ${priority}">
+                            <input type="checkbox" id="checkbox-${id}" title="Mark as completed">
                         </div>
                     </div>
-                    <output id="task-output-${id}" type="text" class="form-control todo-content ${priority}" aria-label="Task output with checkbox">
+                    <output type="text" class="form-control todo-content" aria-label="Task output with checkbox">
                         <div class="d-flex flex-row ">
-                            <h4 class="mr-auto">${task}</h4>
+                            <h4 class="mr-auto" id="task-output-${id}">${task}</h4>
                             <h5>${date}</h5>
                         </div>
                     </output>
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="delete-${id}" class="btn btn-danger" value=${id}>x</button>
+                <button type="button" id="delete-${id}" class="btn btn-danger" title="Delete this task" value=${id}>x</button>
             </div>
         </div>
         `;
@@ -102,9 +108,9 @@ $(function () {
     };
 
     // Display data from storage to DOM
-    const displayToDOM = () => {
+    const displayToDOM = (data) => {
         $("#result-field").html("");
-        const todos = getStorage();
+        const todos = data;
 
         todos.forEach(todo => {
             addToDOM({
@@ -118,6 +124,16 @@ $(function () {
         todos.forEach(todo => {
             $(`#delete-${todo.id}`).on("click", function () {
                 removeItem(todo.id);
+            });
+        });
+
+        todos.forEach(todo => {
+            $(`#checkbox-${todo.id}`).on("click", function () {
+                if ($(`#checkbox-${todo.id}`).prop('checked')) {
+                    $(`#task-output-${todo.id}`).html(`<del>${todo.task}</del>`);
+                } else {
+                    $(`#task-output-${todo.id}`).html(`${todo.task}`);
+                }
             });
         });
     };
@@ -138,7 +154,8 @@ $(function () {
 
         todos.push(todo);
         setStorage(todos);
-        displayToDOM();
+        displayToDOM(getStorage());
+        clearInput();
     };
 
     // Remove data in local storage
@@ -149,18 +166,27 @@ $(function () {
             if (todo.id === Number(idToRemove)) {
                 todos.splice(index, 1);
                 setStorage(todos);
-                displayToDOM();
+                displayToDOM(getStorage());
             }
         });
     };
+
+    const clearInput = () => {
+        $('#task').val("");
+        $('#priority').val("Priority");
+        $('#datepicker').val("");
+
+        checkInput();
+    }
 
     // Event Listener
     $("#task-form").on("submit", addData);
 
     // Calling Function
-    displayToDOM();
+    displayToDOM(getStorage());
     getDatePicker();
     getCurrentDate();
     checkInput();
+    search();
 
 });
