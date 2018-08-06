@@ -9,12 +9,13 @@
 -   Adding todo list
 -   Controlling todo list with various colors
 -   Arranging todo list
+-   Search task 
 
 ---
 
 ## Screenshot
 
-![Screenshot](./images/screenshot.png)
+![Screenshot](./image/screenshot.png)
 
 ---
 
@@ -27,11 +28,13 @@
 
 -   JavaScript
 -   jQuery
+-   Node JS
+-   Express JS
 
 ---
 
 ## Our Team Members
 
-1.  Guntur Kurniawan Heryanto (Project Leader)
-2.  Maya Sopiah Lubis
-3.  Muhammad Alif Raher
+1.  [Guntur Kurniawan Heryanto](https://github.com/gunturkh) (Project Leader)
+2.  [Maya Sopiah Lubis](https://github.com/mayasopiie) (Back End)
+3.  [Muhammad Alif Raher](https://github.com/alifraher) (Front End)
