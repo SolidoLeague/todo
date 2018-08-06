@@ -9,9 +9,13 @@
     color: cornsilk;
 }
 
+#current-date {
+    color: cornsilk;
+}
+
 .high {
     background-color: tomato;
-    color: white;
+    color: cornsilk;
 }
 
 .medium {
@@ -21,5 +25,5 @@
 
 .low {
     background-color: green;
-    color: white
+    color: cornsilk;
 }
