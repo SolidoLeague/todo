@@ -32,44 +32,6 @@ $(function () {
         });
     }
 
-    // Get increment from localstorage
-    //const getIncrement = () => {
-    //    const increment = Number(localStorage.getItem("increment"));
-    //    if (increment) return increment;
-    //    else return 0;
-    //};
-
-    // Set increment to localstorage
-    //const setIncrement = () => {
-    //    const currentIncrement = getIncrement();
-    //    localStorage.setItem("increment", currentIncrement + 1);
-    //};
-
-    // Get data from localstorage
-    //const getStorage = () => {
-    //    const todos = localStorage.getItem("todolist");
-    //    if (todos) return JSON.parse(todos);
-    //    else return [];
-    //};
-
-    // Set data to localstorage
-    //const setStorage = todos => {
-    //    localStorage.setItem("todolist", JSON.stringify(todos));
-    //};
-
-    // Search data from localstorage
-    //const search = () => {
-    //    const data = getStorage();
-    //    $('#search').keyup(function () {
-    //        const result = [];
-    //        data.forEach((todo, index) => {
-    //            const search = todo.task.toLowerCase().includes($('#search').val());
-    //            if (search) result.push(data[index]);
-    //        });
-    //        displayToDOM(result);
-    //    });
-    //}
-
     // Template for output
     const createTemplate = ({
         id,
@@ -128,7 +90,8 @@ $(function () {
 
         todos.forEach(todo => {
             $(`#delete-${todo.id}`).on("click", function () {
-                removeItem(todo.id);
+                deleteDataServer(todo.id);
+                getDataServer();
             });
         });
 
@@ -154,7 +117,7 @@ $(function () {
             id: 20,
             task: $("#task").val(),
             priority: $("#priority").val(),
-            date: $("#datepicker").val()
+            deadline: $("#datepicker").val()
         };
 
         //todos.push(todo);
@@ -163,19 +126,6 @@ $(function () {
         //displayToDOM(getStorage());
         getDataServer();
         clearInput();
-    };
-
-    // Remove data in local storage
-    const removeItem = idToRemove => {
-        const todos = getStorage();
-
-        todos.find((todo, index) => {
-            if (todo.id === Number(idToRemove)) {
-                todos.splice(index, 1);
-                setStorage(todos);
-                displayToDOM(getStorage());
-            }
-        });
     };
 
     // Clear input after add new task
@@ -199,6 +149,7 @@ $(function () {
             });
     }
 
+    // Method POST : Add data to server 
     const postDataServer = (data) => {
         var url = 'http://localhost:3000/todos';
 
@@ -213,11 +164,22 @@ $(function () {
             .then(response => console.log('Success:', response));
     }
 
+    // Method DELETE : delete data from server 
+    const deleteDataServer = (id) => {
+        var url = 'http://localhost:3000/todos';
+        return fetch(url + '/' + id, {
+            method: 'DELETE'
+        }).then(response =>
+            response.json().then(json => {
+                return json;
+            })
+        );
+    }
+
     // Event Listener
     $("#task-form").on("submit", addData);
 
     // Calling Function
-    //displayToDOM(getStorage());
     getDatePicker();
     getCurrentDate();
     checkInput();
