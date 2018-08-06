@@ -177,7 +177,18 @@ $(function () {
         $('#datepicker').val("");
 
         checkInput();
+    };
+
+    const getData = () => {
+        fetch("http://localhost:3000/todos")
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                displayToDOM(data.todos);
+            });
     }
+
 
     // Event Listener
     $("#task-form").on("submit", addData);
@@ -188,5 +199,6 @@ $(function () {
     getCurrentDate();
     checkInput();
     search();
+    getData();
 
 });
