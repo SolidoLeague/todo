@@ -27,3 +27,7 @@
     background-color: green;
     color: cornsilk;
 }
+
+.completed {
+    text-decoration: line-through;
+}
