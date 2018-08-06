@@ -6,10 +6,10 @@
 
 ## Features on application
 
--   Adding todo list
--   Controlling todo list with various colors
--   Arranging todo list
--   Search task 
+- Adding todo list
+- Controlling todo list with various colors
+- Arranging todo list
+- Search task
 
 ---
 
@@ -19,17 +19,26 @@
 
 ---
 
+## Development
+
+```sh
+npm install
+bower install
+npm start
+```
+
+---
+
 ## Developed by Using These Technologies
 
--   Visual Studio Code
--   HTML
--   CSS
--   Bootstrap 4
-
--   JavaScript
--   jQuery
--   Node JS
--   Express JS
+- Visual Studio Code
+- HTML
+- CSS
+- Bootstrap 4
+- JavaScript
+- jQuery
+- Node JS
+- Express JS
 
 ---
 
