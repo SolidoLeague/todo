@@ -35,6 +35,6 @@
 
 ## Our Team Members
 
-1.  [Guntur Kurniawan Heryanto] (https://github.com/gunturkh) (Project Leader)
-2.  [Maya Sopiah Lubis] (https://github.com/mayasopiie) (Back End)
-3.  [Muhammad Alif Raher] (https://github.com/alifraher) (Front End)
+1.  [Guntur Kurniawan Heryanto](https://github.com/gunturkh) (Project Leader)
+2.  [Maya Sopiah Lubis](https://github.com/mayasopiie) (Back End)
+3.  [Muhammad Alif Raher](https://github.com/alifraher) (Front End)
