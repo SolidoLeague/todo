@@ -1,0 +1,23 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "Group project 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SolidoLeague/todo.git"
+  },
+  "keywords": [
+    "todo",
+    "javascript"
+  ],
+  "author": "M Alif Raher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SolidoLeague/todo/issues"
+  },
+  "homepage": "https://github.com/SolidoLeague/todo#readme"
+}
