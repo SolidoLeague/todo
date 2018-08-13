@@ -1,5 +1,5 @@
-$(function() {
-  const url = 'http://localhost:3000/todos';
+$(function () {
+  const url = 'https://learn-heroku-deploy.herokuapp.com';
 
   // Configure Datepicker
   const getDatePicker = () => {
@@ -24,21 +24,27 @@ $(function() {
     $('#current-date').html(today);
   };
 
-  // Disable add button when task is empty
+  // Disable add button when todo_task is empty
   const checkInput = () => {
     $('#add').prop('disabled', true);
-    $('#task').keyup(function() {
+    $('#todo_task').keyup(function () {
       if ($(this).val() !== '') $('#add').prop('disabled', false);
       else $('#add').prop('disabled', true);
     });
   };
 
   // Template for output
-  const createTemplate = ({ id, task, priority, deadline, completed }) => {
+  const createTemplate = ({
+    id,
+    todo_task,
+    priority,
+    due_date,
+    completed
+  }) => {
     const completedClass = completed ? 'completed' : '';
 
     return `
-        <div class="row justify-content-md-center" id="task-result-${id}">
+        <div class="row justify-content-md-center" id="todo_task-result-${id}">
             <div class="col col-lg-11">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -46,13 +52,13 @@ $(function() {
                             <input type="checkbox" id="checkbox-${id}" title="Mark as completed">
                         </div>
                     </div>
-                    <output type="text" class="form-control todo-content" aria-label="Task output with checkbox">
+                    <output type="text" class="form-control todo-content" aria-label="todo_Task output with checkbox">
                         <div class="d-flex flex-row ">
-                            <h4 class="mr-auto ${completedClass}" id="task-output-${id}">
-                              ${task}
+                            <h4 class="mr-auto ${completedClass}" id="todo_task-output-${id}">
+                              ${todo_task}
                             </h4>
-                            <h5 class="deadline">${dateFns.format(
-                              deadline,
+                            <h5 class="due_date">${dateFns.format(
+                              due_date,
                               'D MMMM YYYY'
                             )}</h5>
                         </div>
@@ -60,19 +66,26 @@ $(function() {
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="delete-${id}" class="btn btn-danger" title="Delete this task" value=${id}>x</button>
+                <button type="button" id="edit-${id}" class="btn" title="Delete this todo_task" value=${id}>Edit</button>
+                <button type="button" id="delete-${id}" class="btn btn-danger" title="Delete this todo_task" value=${id}>x</button>
             </div>
         </div>
         `;
   };
 
   // Render data to DOM
-  const addToDOM = ({ id, task, priority, deadline, completed }) => {
+  const addToDOM = ({
+    id,
+    todo_task,
+    priority,
+    due_date,
+    completed
+  }) => {
     const template = createTemplate({
       id,
-      task,
+      todo_task,
       priority,
-      deadline,
+      due_date,
       completed
     });
     $('#result-field').append(template);
@@ -81,14 +94,22 @@ $(function() {
   // Display data from storage to DOM
   const displayToDOM = data => {
     $('#result-field').html('');
-    const todos = data;
+    console.log(data);
+    const todos = data.todo_lists;
 
     todos.forEach(todo => {
       addToDOM(todo);
     });
 
     todos.forEach(todo => {
-      $(`#delete-${todo.id}`).on('click', function() {
+      $(`#delete-${todo.id}`).on('click', function () {
+        putDataServer(todo.id);
+        getDataServer();
+      });
+    });
+
+    todos.forEach(todo => {
+      $(`#delete-${todo.id}`).on('click', function () {
         deleteDataServer(todo.id);
         getDataServer();
       });
@@ -96,11 +117,11 @@ $(function() {
 
     // TODO: Implement actual update on completed check via API
     todos.forEach(todo => {
-      $(`#checkbox-${todo.id}`).on('click', function() {
+      $(`#checkbox-${todo.id}`).on('click', function () {
         if ($(`#checkbox-${todo.id}`).prop('checked')) {
-          $(`#task-output-${todo.id}`).html(`<del>${todo.task}</del>`);
+          $(`#todo_task-output-${todo.id}`).html(`<del>${todo.todo_task}</del>`);
         } else {
-          $(`#task-output-${todo.id}`).html(`${todo.task}`);
+          $(`#todo_task-output-${todo.id}`).html(`${todo.todo_task}`);
         }
       });
     });
@@ -115,9 +136,9 @@ $(function() {
 
     const todo = {
       id: 20,
-      task: $('#task').val(),
+      todo_task: $('#todo_task').val(),
       priority: $('#priority').val(),
-      deadline: $('#datepicker').val()
+      due_date: $('#datepicker').val()
     };
 
     //todos.push(todo);
@@ -128,9 +149,9 @@ $(function() {
     clearInput();
   };
 
-  // Clear input after add new task
+  // Clear input after add new todo_task
   const clearInput = () => {
-    $('#task').val('');
+    $('#todo_task').val('');
     $('#priority').val('Priority');
     $('#datepicker').val('');
 
@@ -152,12 +173,12 @@ $(function() {
   // Method POST : Add data to server
   const postDataServer = data => {
     fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(data), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response => {
@@ -166,11 +187,28 @@ $(function() {
       });
   };
 
-  // Method DELETE : delete data from server
+  // Method PUT : Edit data to server
+  const putDataServer = data => {
+    fetch(url, {
+        method: 'PUT', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log('Success:', response);
+        getDataServer();
+      });
+  };
+
+  // Method DELETE : Delete data from server
   const deleteDataServer = id => {
     return fetch(`${url}/${id}`, {
-      method: 'DELETE'
-    })
+        method: 'DELETE'
+      })
       .then(response => {
         return response.json();
       })
@@ -188,12 +226,12 @@ $(function() {
   };
 
   // Event Listener
-  $('#task-form').on('submit', addData);
+  $('#todo_task-form').on('submit', addData);
 
   // Calling Function
   getDatePicker();
   getCurrentDate();
-  checkInput();
+  //checkInput();
   //search();
 
   getDataServer();
