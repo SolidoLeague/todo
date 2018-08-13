@@ -31,8 +31,10 @@ $(function () {
     completed
   }) => {
     let completedClass = '';
+    let checked = "";
     if (completed == 'true') {
       completedClass = 'completed';
+      checked = "checked"
     }
 
     return `
@@ -41,7 +43,7 @@ $(function () {
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text ${priority}">
-                            <input type="checkbox" id="checkbox-${id}" title="Mark as completed">
+                            <input type="checkbox" id="checkbox-${id}" title="Mark as completed" ${checked}>
                         </div>
                     </div>
                     <output type="text" class="form-control todo-content" aria-label="todo_Task output with checkbox">
