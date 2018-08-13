@@ -4,7 +4,6 @@ $(function () {
   // Configure Datepicker
   const getDatePicker = () => {
     $('#datepicker').datepicker({
-      format: 'dd/mm/yyyy',
       uiLibrary: 'bootstrap4'
     });
   };
@@ -112,8 +111,12 @@ $(function () {
       $(`#checkbox-${todo.id}`).on('click', function () {
         if ($(`#checkbox-${todo.id}`).prop('checked')) {
           $(`#todo_task-output-${todo.id}`).html(`<del>${todo.todo_task}</del>`);
+          putDataServer(todo.id,{"completed":"true"});
+          getDataServer();
         } else {
           $(`#todo_task-output-${todo.id}`).html(`${todo.todo_task}`);
+          putDataServer(todo.id,{"completed":"false"});
+          getDataServer();
         }
       });
     });
@@ -174,8 +177,8 @@ $(function () {
   };
 
   // Method PUT : Edit data to server
-  const putDataServer = data => {
-    fetch(url, {
+  const putDataServer = (id,data) => {
+    fetch(`${url}/${id}`, {
         method: 'PUT', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
         headers: {
