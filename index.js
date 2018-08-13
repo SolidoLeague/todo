@@ -11,17 +11,7 @@ $(function () {
 
   // Show Current Date on navbar
   const getCurrentDate = () => {
-    let today = new Date();
-    let date = today.getDate();
-    let month = today.getMonth() + 1;
-    const year = today.getFullYear();
-
-    if (date < 10) date = '0' + date;
-    if (month < 10) month = '0' + month;
-
-    today = date + '-' + month + '-' + year;
-
-    $('#current-date').html(today);
+    $('#current-date').html(dateFns.format(new Date(), 'D MMMM YYYY'));
   };
 
   // Disable add button when todo_task is empty
@@ -41,7 +31,10 @@ $(function () {
     due_date,
     completed
   }) => {
-    const completedClass = completed ? 'completed' : '';
+    let completedClass = '';
+    if (completed == 'true') {
+      completedClass = 'completed';
+    }
 
     return `
         <div class="row justify-content-md-center" id="todo_task-result-${id}">
@@ -66,8 +59,7 @@ $(function () {
                 </div>
             </div>
             <div class="add">
-                <button type="button" id="edit-${id}" class="btn" title="Delete this todo_task" value=${id}>Edit</button>
-                <button type="button" id="delete-${id}" class="btn btn-danger" title="Delete this todo_task" value=${id}>x</button>
+              <button type="button" id="delete-${id}" class="btn btn-danger" title="Delete this todo_task" value=${id}>x</button>
             </div>
         </div>
         `;
@@ -102,7 +94,7 @@ $(function () {
     });
 
     todos.forEach(todo => {
-      $(`#delete-${todo.id}`).on('click', function () {
+      $(`#edit-${todo.id}`).on('click', function () {
         putDataServer(todo.id);
         getDataServer();
       });
@@ -131,20 +123,15 @@ $(function () {
   const addData = event => {
     event.preventDefault();
 
-    //setIncrement();
-    //const todos = getStorage();
-
     const todo = {
-      id: 20,
       todo_task: $('#todo_task').val(),
       priority: $('#priority').val(),
+      completed: 'false',
       due_date: $('#datepicker').val()
     };
 
-    //todos.push(todo);
-    //setStorage(todos);
+    console.log('add data = ', todo)
     postDataServer(todo);
-    //displayToDOM(getStorage());
     getDataServer();
     clearInput();
   };
@@ -165,7 +152,6 @@ $(function () {
         return response.json();
       })
       .then(data => {
-        // console.log(data);
         displayToDOM(data);
       });
   };
@@ -226,12 +212,12 @@ $(function () {
   };
 
   // Event Listener
-  $('#todo_task-form').on('submit', addData);
+  $('#task-form').on('submit', addData);
 
   // Calling Function
   getDatePicker();
   getCurrentDate();
-  //checkInput();
+  checkInput();
   //search();
 
   getDataServer();
