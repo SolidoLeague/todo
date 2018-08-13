@@ -31,6 +31,7 @@ $(function () {
     completed
   }) => {
     let completedClass = '';
+
     let checked = '';
     if (completed == 'true') {
       completedClass = 'completed';
