@@ -31,8 +31,10 @@ $(function () {
     completed
   }) => {
     let completedClass = '';
+    let checked = '';
     if (completed == 'true') {
       completedClass = 'completed';
+      checked = 'checked';
     }
 
     return `
@@ -41,7 +43,7 @@ $(function () {
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text ${priority}">
-                            <input type="checkbox" id="checkbox-${id}" title="Mark as completed">
+                            <input type="checkbox" id="checkbox-${id}" title="Mark as completed" ${checked}>
                         </div>
                     </div>
                     <output type="text" class="form-control todo-content" aria-label="todo_Task output with checkbox">
@@ -110,12 +112,14 @@ $(function () {
     todos.forEach(todo => {
       $(`#checkbox-${todo.id}`).on('click', function () {
         if ($(`#checkbox-${todo.id}`).prop('checked')) {
-          $(`#todo_task-output-${todo.id}`).html(`<del>${todo.todo_task}</del>`);
-          putDataServer(todo.id,{"completed":"true"});
+          putDataServer(todo.id, {
+            "completed": "true"
+          });
           getDataServer();
         } else {
-          $(`#todo_task-output-${todo.id}`).html(`${todo.todo_task}`);
-          putDataServer(todo.id,{"completed":"false"});
+          putDataServer(todo.id, {
+            "completed": "false"
+          });
           getDataServer();
         }
       });
@@ -177,7 +181,7 @@ $(function () {
   };
 
   // Method PUT : Edit data to server
-  const putDataServer = (id,data) => {
+  const putDataServer = (id, data) => {
     fetch(`${url}/${id}`, {
         method: 'PUT', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -207,21 +211,34 @@ $(function () {
       });
   };
 
-  const searchOneByKeyword = keyword => {
-    console.log(keyword);
+  const searchByKeyword = () => {
+    const keyword = $('#search').val();
+    const keywordLowercase = keyword.toLowerCase();
 
-    // TODO: Implement search via API
-    // fetch(`${url}/todos/search?keyword=${keyword}`)
+    fetch(`${url}/search/?q=${keywordLowercase}`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        referrer: 'no-referrer'
+      })
+      .then(response => response.json())
+      .then(data => {
+        getDataServer();
+      });
   };
 
   // Event Listener
   $('#task-form').on('submit', addData);
+  $('#search').keyup(function () {
+    searchByKeyword();
+  })
 
   // Calling Function
   getDatePicker();
   getCurrentDate();
   checkInput();
-  //search();
 
   getDataServer();
 });
